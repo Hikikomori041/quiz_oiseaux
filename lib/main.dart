@@ -377,7 +377,7 @@ class _QuizScreenState extends State<QuizScreen> {
         ),
         // LE BOUTON HAMBURGER EN HAUT À GAUCHE (toujours visible)
         Positioned(
-          top: 56,
+          top: 24,
           left: 24,
           child: Builder(
             builder: (context) => IconButton(
