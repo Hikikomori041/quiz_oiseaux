@@ -321,7 +321,7 @@ class _QuizScreenState extends State<QuizScreen> {
               ),
             ),
 
-            // const SizedBox(height: 20),
+            const SizedBox(height: 40),
           ],
         ),
       ),
