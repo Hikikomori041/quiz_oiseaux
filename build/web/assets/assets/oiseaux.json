@@ -1,0 +1,526 @@
+{
+  "Accenteur alpin": {
+    "type": "montagne",
+    "nom_latin": "Prunella collaris"
+  },
+  "Accenteur mouchet": {
+    "type": "foret",
+    "nom_latin": "Prunella modularis"
+  },
+  "Aigrette garzette": {
+    "type": "eau",
+    "nom_latin": "Egretta garzetta"
+  },
+  "Alouette des champs": {
+    "type": "plaine",
+    "nom_latin": "Alauda arvensis"
+  },
+  "Alouette lulu": {
+    "type": "foret",
+    "nom_latin": "Lullula arborea"
+  },
+  "Avocette élégante": {
+    "type": "eau",
+    "nom_latin": "Recurvirostra avosetta"
+  },
+  "Barge à queue noire": {
+    "type": "eau",
+    "nom_latin": "Limosa limosa"
+  },
+  "Barge rousse": {
+    "type": "eau",
+    "nom_latin": "Limosa lapponica"
+  },
+  "Bécassine des bois": {
+    "type": "foret",
+    "nom_latin": "Gallinago nemoricola"
+  },
+  "Bécassine des marais": {
+    "type": "eau",
+    "nom_latin": "Gallinago gallinago"
+  },
+  "Bergeronnette des ruisseaux": {
+    "type": "commun",
+    "nom_latin": "Motacilla cinerea"
+  },
+  "Bergeronnette grise": {
+    "type": "commun",
+    "nom_latin": "Motacilla alba"
+  },
+  "Bergeronnette printanière": {
+    "type": "plaine",
+    "nom_latin": "Motacilla flava"
+  },
+  "Blongios nain": {
+    "type": "eau",
+    "nom_latin": "Ixobrychus minutus"
+  },
+  "Bondrée apivore": {
+    "type": "foret",
+    "nom_latin": "Pernis apivorus"
+  },
+  "Bouscarle de Cetti": {
+    "type": "commun",
+    "nom_latin": "Cettia cetti"
+  },
+  "Bruant des roseaux": {
+    "type": "eau",
+    "nom_latin": "Emberiza schoeniclus"
+  },
+  "Bruant jaune": {
+    "type": "plaine",
+    "nom_latin": "Emberiza citrinella"
+  },
+  "Bruant ortolan": {
+    "type": "plaine",
+    "nom_latin": "Emberiza hortulana"
+  },
+  "Bruant proyer": {
+    "type": "plaine",
+    "nom_latin": "Emberiza calandra"
+  },
+  "Bruant zizi": {
+    "type": "plaine",
+    "nom_latin": "Emberiza cirlus"
+  },
+  "Busard cendré": {
+    "type": "plaine",
+    "nom_latin": "Circus pygargus"
+  },
+  "Busard Saint-Martin": {
+    "type": "plaine",
+    "nom_latin": "Circus cyaneus"
+  },
+  "Butor étoilé": {
+    "type": "eau",
+    "nom_latin": "Botaurus stellaris"
+  },
+  "Canard chipeau": {
+    "type": "eau",
+    "nom_latin": "Mareca strepera"
+  },
+  "Canard colvert": {
+    "type": "eau",
+    "nom_latin": "Anas platyrhynchos"
+  },
+  "Canard pilet": {
+    "type": "eau",
+    "nom_latin": "Anas acuta"
+  },
+  "Canard siffleur": {
+    "type": "eau",
+    "nom_latin": "Mareca penelope"
+  },
+  "Chardonneret élégant": {
+    "type": "commun",
+    "nom_latin": "Carduelis carduelis"
+  },
+  "Chevalier arlequin": {
+    "type": "eau",
+    "nom_latin": "Tringa erythropus"
+  },
+  "Chevalier cul-blanc": {
+    "type": "eau",
+    "nom_latin": "Tringa ochropus"
+  },
+  "Chevalier gambette": {
+    "type": "eau",
+    "nom_latin": "Tringa totanus"
+  },
+  "Chevalier guignette": {
+    "type": "eau",
+    "nom_latin": "Actitis hypoleucos"
+  },
+  "Chevalier sylvain": {
+    "type": "eau",
+    "nom_latin": "Tringa glareola"
+  },
+  "Chocard à bec jaune": {
+    "type": "montagne",
+    "nom_latin": "Pyrrhocorax graculus"
+  },
+  "Choucas des tours": {
+    "type": "commun",
+    "nom_latin": "Coloeus monedula"
+  },
+  "Cincle plongeur": {
+    "type": "montagne",
+    "nom_latin": "Cinclus cinclus"
+  },
+  "Cisticole des joncs": {
+    "type": "plaine",
+    "nom_latin": "Cisticola juncidis"
+  },
+  "Corneille noire": {
+    "type": "commun",
+    "nom_latin": "Corvus corone"
+  },
+  "Coucou gris": {
+    "type": "commun",
+    "nom_latin": "Cuculus canorus"
+  },
+  "Eider à duvet": {
+    "type": "eau",
+    "nom_latin": "Somateria mollissima"
+  },
+  "Etourneau sansonnet": {
+    "type": "commun",
+    "nom_latin": "Sturnus vulgaris"
+  },
+  "Faisan de Colchide": {
+    "type": "commun",
+    "nom_latin": "Phasianus colchicus"
+  },
+  "Faucon crécerelle": {
+    "type": "commun",
+    "nom_latin": "Falco tinnunculus"
+  },
+  "Faucon pèlerin": {
+    "type": "commun",
+    "nom_latin": "Falco peregrinus"
+  },
+  "Fauvette à tête noire": {
+    "type": "commun",
+    "nom_latin": "Sylvia atricapilla"
+  },
+  "Fauvette des jardins": {
+    "type": "commun",
+    "nom_latin": "Sylvia borin"
+  },
+  "Fauvette grisette": {
+    "type": "plaine",
+    "nom_latin": "Curruca communis"
+  },
+  "Foulque macroule": {
+    "type": "eau",
+    "nom_latin": "Fulica atra"
+  },
+  "Fuligule milouin": {
+    "type": "eau",
+    "nom_latin": "Aythya ferina"
+  },
+  "Gallinule poule-d'eau": {
+    "type": "eau",
+    "nom_latin": "Gallinula chloropus"
+  },
+  "Geai des chênes": {
+    "type": "foret",
+    "nom_latin": "Garrulus glandarius"
+  },
+  "Gobemouche gris": {
+    "type": "foret",
+    "nom_latin": "Muscicapa striata"
+  },
+  "Grand Corbeau": {
+    "type": "commun",
+    "nom_latin": "Corvus corax"
+  },
+  "Grand Cormoran": {
+    "type": "eau",
+    "nom_latin": "Phalacrocorax carbo"
+  },
+  "Grande aigrette": {
+    "type": "eau",
+    "nom_latin": "Ardea alba"
+  },
+  "Grèbe à cou noir": {
+    "type": "eau",
+    "nom_latin": "Podiceps nigricollis"
+  },
+  "Grèbe castagneux": {
+    "type": "eau",
+    "nom_latin": "Tachybaptus ruficollis"
+  },
+  "Grèbe esclavon": {
+    "type": "eau",
+    "nom_latin": "Podiceps auritus"
+  },
+  "Grèbe huppé": {
+    "type": "eau",
+    "nom_latin": "Podiceps cristatus"
+  },
+  "Grèbe jougris": {
+    "type": "eau",
+    "nom_latin": "Podiceps grisegena"
+  },
+  "Grimpereau des jardins": {
+    "type": "foret",
+    "nom_latin": "Certhia brachydactyla"
+  },
+  "Grive draine": {
+    "type": "foret",
+    "nom_latin": "Turdus viscivorus"
+  },
+  "Grive litorne": {
+    "type": "plaine",
+    "nom_latin": "Turdus pilaris"
+  },
+  "Grive musicienne": {
+    "type": "foret",
+    "nom_latin": "Turdus philomelos"
+  },
+  "Grosbec casse-noyaux": {
+    "type": "foret",
+    "nom_latin": "Coccothraustes coccothraustes"
+  },
+  "Guêpier d'Europe": {
+    "type": "plaine",
+    "nom_latin": "Merops apiaster"
+  },
+  "Héron cendré": {
+    "type": "eau",
+    "nom_latin": "Ardea cinerea"
+  },
+  "Huppe fasciée": {
+    "type": "commun",
+    "nom_latin": "Upupa epops"
+  },
+  "Hypolaïs polyglotte": {
+    "type": "commun",
+    "nom_latin": "Hippolais polyglotta"
+  },
+  "Linotte mélodieuse": {
+    "type": "plaine",
+    "nom_latin": "Carduelis cannabina"
+  },
+  "Locustelle luscinioïde": {
+    "type": "eau",
+    "nom_latin": "Locustella luscinioides"
+  },
+  "Locustelle tachetée": {
+    "type": "eau",
+    "nom_latin": "Locustella naevia"
+  },
+  "Loriot d'Europe": {
+    "type": "foret",
+    "nom_latin": "Oriolus oriolus"
+  },
+  "Martin-pêcheur d'Europe": {
+    "type": "commun",
+    "nom_latin": "Alcedo atthis"
+  },
+  "Merle noir": {
+    "type": "commun",
+    "nom_latin": "Turdus merula"
+  },
+  "Mésange bleue": {
+    "type": "foret",
+    "nom_latin": "Cyanistes caeruleus"
+  },
+  "Mésange charbonnière": {
+    "type": "foret",
+    "nom_latin": "Parus major"
+  },
+  "Mésange huppée": {
+    "type": "foret",
+    "nom_latin": "Lophophanes cristatus"
+  },
+  "Mésange noire": {
+    "type": "foret",
+    "nom_latin": "Periparus ater"
+  },
+  "Moineau domestique": {
+    "type": "commun",
+    "nom_latin": "Passer domesticus"
+  },
+  "Mouette rieuse": {
+    "type": "commun",
+    "nom_latin": "Chroicocephalus ridibundus"
+  },
+  "Oedicnème criard": {
+    "type": "plaine",
+    "nom_latin": "Burhinus oedicnemus"
+  },
+  "Oie cendrée": {
+    "type": "eau",
+    "nom_latin": "Anser anser"
+  },
+  "Oie rieuse": {
+    "type": "eau",
+    "nom_latin": "Anser albifrons"
+  },
+  "Orite à longue queue": {
+    "type": "foret",
+    "nom_latin": "Aegithalos caudatus"
+  },
+  "Outarde canepetière": {
+    "type": "plaine",
+    "nom_latin": "Tetrax tetrax"
+  },
+  "Panure à moustaches": {
+    "type": "eau",
+    "nom_latin": "Panurus biarmicus"
+  },
+  "Phragmite des joncs": {
+    "type": "eau",
+    "nom_latin": "Acrocephalus schoenobaenus"
+  },
+  "Pic épeiche": {
+    "type": "foret",
+    "nom_latin": "Dendrocopos major"
+  },
+  "Pic épeichette": {
+    "type": "foret",
+    "nom_latin": "Dryobates minor"
+  },
+  "Pic mar": {
+    "type": "foret",
+    "nom_latin": "Dendrocoptes medius"
+  },
+  "Pic noir": {
+    "type": "foret",
+    "nom_latin": "Dryocopus martius"
+  },
+  "Pic vert": {
+    "type": "foret",
+    "nom_latin": "Picus viridis"
+  },
+  "Pie bavarde": {
+    "type": "commun",
+    "nom_latin": "Pica pica"
+  },
+  "Pie-grièche écorcheur": {
+    "type": "plaine",
+    "nom_latin": "Lanius collurio"
+  },
+  "Pigeon ramier": {
+    "type": "foret",
+    "nom_latin": "Columba palumbus"
+  },
+  "Pinson des arbres": {
+    "type": "foret",
+    "nom_latin": "Fringilla coelebs"
+  },
+  "Pipit des arbres": {
+    "type": "foret",
+    "nom_latin": "Anthus trivialis"
+  },
+  "Pipit rousseline": {
+    "type": "plaine",
+    "nom_latin": "Anthus campestris"
+  },
+  "Pouillot de Bonelli": {
+    "type": "foret",
+    "nom_latin": "Phylloscopus bonelli"
+  },
+  "Pouillot fitis": {
+    "type": "foret",
+    "nom_latin": "Phylloscopus trochilus"
+  },
+  "Pouillot siffleur": {
+    "type": "foret",
+    "nom_latin": "Phylloscopus sibilatrix"
+  },
+  "Pouillot véloce": {
+    "type": "foret",
+    "nom_latin": "Phylloscopus collybita"
+  },
+  "Roitelet huppé": {
+    "type": "foret",
+    "nom_latin": "Regulus regulus"
+  },
+  "Roitelet triple-bandeau": {
+    "type": "foret",
+    "nom_latin": "Regulus ignicapilla"
+  },
+  "Rossignol philomèle": {
+    "type": "foret",
+    "nom_latin": "Luscinia megarhynchos"
+  },
+  "Rougegorge familier": {
+    "type": "foret",
+    "nom_latin": "Erithacus rubecula"
+  },
+  "Rougequeue à front blanc": {
+    "type": "foret",
+    "nom_latin": "Phoenicurus phoenicurus"
+  },
+  "Rougequeue noir": {
+    "type": "commun",
+    "nom_latin": "Phoenicurus ochruros"
+  },
+  "Rousserolle effarvatte": {
+    "type": "eau",
+    "nom_latin": "Acrocephalus scirpaceus"
+  },
+  "Rousserolle turdoïde": {
+    "type": "eau",
+    "nom_latin": "Acrocephalus arundinaceus"
+  },
+  "Rousserolle verderolle": {
+    "type": "eau",
+    "nom_latin": "Acrocephalus palustris"
+  },
+  "Sarcelle d'été": {
+    "type": "eau",
+    "nom_latin": "Spatula querquedula"
+  },
+  "Sarcelle d'hiver": {
+    "type": "eau",
+    "nom_latin": "Anas crecca"
+  },
+  "Serin cini": {
+    "type": "commun",
+    "nom_latin": "Serinus serinus"
+  },
+  "Sittelle torchepot": {
+    "type": "foret",
+    "nom_latin": "Sitta europaea"
+  },
+  "Sizerin flammé": {
+    "type": "foret",
+    "nom_latin": "Acanthis flammea"
+  },
+  "Spatule blanche": {
+    "type": "eau",
+    "nom_latin": "Platalea leucorodia"
+  },
+  "Tadorne de Belon": {
+    "type": "eau",
+    "nom_latin": "Tadorna tadorna"
+  },
+  "Tarier des prés": {
+    "type": "plaine",
+    "nom_latin": "Saxicola rubetra"
+  },
+  "Tarier pâtre": {
+    "type": "plaine",
+    "nom_latin": "Saxicola rubicola"
+  },
+  "Tarin des aulnes": {
+    "type": "foret",
+    "nom_latin": "Carduelis spinus"
+  },
+  "Tichodrome échelette": {
+    "type": "montagne",
+    "nom_latin": "Tichodroma muraria"
+  },
+  "Torcol fourmilier": {
+    "type": "montagne",
+    "nom_latin": "Jynx torquilla"
+  },
+  "Tourterelle des bois": {
+    "type": "foret",
+    "nom_latin": "Streptopelia turtur"
+  },
+  "Tourterelle turque": {
+    "type": "commun",
+    "nom_latin": "Streptopelia decaocto"
+  },
+  "Traquet motteux": {
+    "type": "montagne",
+    "nom_latin": "Oenanthe oenanthe"
+  },
+  "Troglodyte mignon": {
+    "type": "foret",
+    "nom_latin": "Troglodytes troglodytes"
+  },
+  "Vanneau huppé": {
+    "type": "eau",
+    "nom_latin": "Vanellus vanellus"
+  },
+  "Verdier d'Europe": {
+    "type": "commun",
+    "nom_latin": "Chloris chloris"
+  }
+}
