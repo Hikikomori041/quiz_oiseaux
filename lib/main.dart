@@ -174,9 +174,8 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,   // ← LIGNE 1 (la clé magique)
-      body: SafeArea(                    // ← LIGNE 2 (ajoute juste SafeArea)
-      // body: Center(
+      extendBody: true,
+      body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -323,7 +322,7 @@ class _QuizScreenState extends State<QuizScreen> {
               ),
             ),
 
-            const SizedBox(height: 40),
+            const SizedBox(height: 120),
           ],
         ),
       ),
