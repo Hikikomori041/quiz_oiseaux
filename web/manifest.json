@@ -5,7 +5,7 @@
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Un quiz d'identification d'oiseaux.",
+    "description": "Ce quiz vise à identifier un oiseau en fonction de son image, parmis 4 propositions.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
