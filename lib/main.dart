@@ -72,6 +72,7 @@ class _QuizScreenState extends State<QuizScreen> {
   final player = AudioPlayer();
   late ConfettiController _confettiController;
   List selectedFour = [];
+  bool showScientificName = false;   // true = affiché par défaut
 
 
   // Ajoute ces variables dans la classe _QuizScreenState
@@ -180,145 +181,197 @@ class _QuizScreenState extends State<QuizScreen> {
     }
 
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,    
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
           children: [
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Text(
-                  "Score : $score / $questionCount",
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-              ),
+            const DrawerHeader(
+              decoration: BoxDecoration(color: Colors.green),
+              child: Text("Paramètres", style: TextStyle(color: Colors.white, fontSize: 24)),
             ),
-            const SizedBox(height: 20),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.asset(
-                'assets/images/$currentBirdName.jpg',
-                height: 300,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    height: 300,
-                    color: Colors.red[100],
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.warning, size: 50, color: Colors.red),
-                        Text('Image manquante :\n$currentBirdName.jpg', textAlign: TextAlign.center),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              currentScientificName,
-              style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 16),
-            ),
-            
-            const SizedBox(height: 30),
-
-            // ESPACE RÉSERVÉ POUR LES 4 BOUTONS OU LE RÉSULTAT (hauteur fixe 270px)
-            SizedBox(
-              height: 324,
-              child: Center(
-                child: answered
-                  ? Column(   // ← RÉSULTAT (seulement quand answered)
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (selectedAnswer == currentBirdName)
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: ConfettiWidget(
-                            confettiController: _confettiController,
-                            blastDirection: pi,
-                            emissionFrequency: 0.15,             // ← au lieu de 0.05 (moins de particules émises par seconde)
-                            numberOfParticles: 30,               // ← au lieu de 80 (beaucoup moins de confettis à la fois)
-                            gravity: 0.4,                        // ← au lieu de 0.25 (ils tombent plus vite = moins longtemps visibles)
-                            // colors: const [Colors.green, Colors.lightGreen, Colors.yellow],  // ← moins de couleurs si tu veux (optionnel, mais ça calme le truc)
-                            colors: const [Colors.green, Colors.yellow, Colors.orange, Colors.red, Colors.blue, Colors.purple],
-                            createParticlePath: drawStar,
-                            shouldLoop: false,
-                          ),
-                        ),
-
-                      Container(
-                        padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          color: selectedAnswer == currentBirdName ? Colors.green[100] : Colors.red[100],
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: selectedAnswer == currentBirdName ? Colors.green : Colors.red,
-                            width: 3,
-                          ),
-                        ),
-                        child: Text(
-                          selectedAnswer == currentBirdName
-                              ? "Bonne réponse !"
-                              : "Mauvaise réponse ! C'était $currentBirdName",
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: selectedAnswer == currentBirdName ? Colors.green[800] : Colors.red[800],
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      const SizedBox(height: 40),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green[700],
-                          padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                        ),
-                        onPressed: newQuestion,
-                        child: const Text("Question suivante", style: TextStyle(fontSize: 22, color: Colors.white)),
-                      ),
-                    ],
-                  )
-                : Column(                                  // ← LES 4 BOUTONS (seulement quand !answered)
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: options.map((option) {
-                      final birdData = selectedFour.firstWhere(
-                        (b) => b['nom_fr'] == option,
-                        orElse: () => {"type": "commun"},
-                      );
-                      final String type = birdData['type'] as String? ?? "commun";
-                      final Color buttonColor = getColorForType(type);
-
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: buttonColor,
-                              foregroundColor: Colors.white,
-                              padding: const EdgeInsets.all(18),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                side: BorderSide(color: buttonColor, width: 3),
-                              ),
-                              elevation: 10,
-                              shadowColor: buttonColor.withOpacity(0.7),
-                            ),
-                            onPressed: () => checkAnswer(option),
-                            child: Text(option, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-              ),
+            SwitchListTile(
+              title: const Text("Afficher le nom latin"),
+              value: showScientificName,
+              onChanged: (value) {
+                setState(() => showScientificName = value);
+                Navigator.pop(context);
+              },
             ),
           ],
         ),
       ),
+      // ← LE TRUC IMPORTANT : Stack autour de tout le body
+    body: Stack(
+      children: [
+        // === TOUT TON CONTENU ACTUEL ===
+        SafeArea(
+        child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Text(
+                        "Score : $score / $questionCount",
+                        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.asset(
+                      'assets/images/$currentBirdName.jpg',
+                      height: 300,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          height: 300,
+                          color: Colors.red[100],
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.warning, size: 50, color: Colors.red),
+                              Text('Image manquante :\n$currentBirdName.jpg', textAlign: TextAlign.center),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  
+                  const SizedBox(height: 10),
+
+                  // Nom latin – affiché ou caché selon le toggle
+                  if (showScientificName)
+                    Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Text(
+                        currentScientificName,
+                        style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 20),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  
+                  const SizedBox(height: 30),
+
+                  // ESPACE RÉSERVÉ POUR LES 4 BOUTONS OU LE RÉSULTAT (hauteur fixe 270px)
+                  SizedBox(
+                    height: 324,
+                    child: Center(
+                      child: answered
+                        ? Column(   // ← RÉSULTAT (seulement quand answered)
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (selectedAnswer == currentBirdName)
+                              Align(
+                                alignment: Alignment.topCenter,
+                                child: ConfettiWidget(
+                                  confettiController: _confettiController,
+                                  blastDirection: pi,
+                                  emissionFrequency: 0.15,             // ← au lieu de 0.05 (moins de particules émises par seconde)
+                                  numberOfParticles: 30,               // ← au lieu de 80 (beaucoup moins de confettis à la fois)
+                                  gravity: 0.4,                        // ← au lieu de 0.25 (ils tombent plus vite = moins longtemps visibles)
+                                  // colors: const [Colors.green, Colors.lightGreen, Colors.yellow],  // ← moins de couleurs si tu veux (optionnel, mais ça calme le truc)
+                                  colors: const [Colors.green, Colors.yellow, Colors.orange, Colors.red, Colors.blue, Colors.purple],
+                                  createParticlePath: drawStar,
+                                  shouldLoop: false,
+                                ),
+                              ),
+
+                            Container(
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                color: selectedAnswer == currentBirdName ? Colors.green[100] : Colors.red[100],
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(
+                                  color: selectedAnswer == currentBirdName ? Colors.green : Colors.red,
+                                  width: 3,
+                                ),
+                              ),
+                              child: Text(
+                                selectedAnswer == currentBirdName
+                                    ? "Bonne réponse !"
+                                    : "Mauvaise réponse ! C'était $currentBirdName",
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: selectedAnswer == currentBirdName ? Colors.green[800] : Colors.red[800],
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            const SizedBox(height: 40),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green[700],
+                                padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                              ),
+                              onPressed: newQuestion,
+                              child: const Text("Question suivante", style: TextStyle(fontSize: 22, color: Colors.white)),
+                            ),
+                          ],
+                        )
+                      : Column(                                  // ← LES 4 BOUTONS (seulement quand !answered)
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: options.map((option) {
+                            final birdData = selectedFour.firstWhere(
+                              (b) => b['nom_fr'] == option,
+                              orElse: () => {"type": "commun"},
+                            );
+                            final String type = birdData['type'] as String? ?? "commun";
+                            final Color buttonColor = getColorForType(type);
+
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: buttonColor,
+                                    foregroundColor: Colors.white,
+                                    padding: const EdgeInsets.all(18),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      side: BorderSide(color: buttonColor, width: 3),
+                                    ),
+                                    elevation: 10,
+                                    shadowColor: buttonColor.withOpacity(0.7),
+                                  ),
+                                  onPressed: () => checkAnswer(option),
+                                  child: Text(option, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                    ),
+                  ),
+                  
+                ],
+              ),
+            ),
+        ),
+        // LE BOUTON HAMBURGER EN HAUT À GAUCHE (toujours visible)
+        Positioned(
+          top: 56,
+          left: 24,
+          child: Builder(
+            builder: (context) => IconButton(
+              icon: const Icon(Icons.menu, color: Colors.white, size: 32),
+              style: IconButton.styleFrom(
+                backgroundColor: Colors.green[700],
+                shape: const CircleBorder(),
+                padding: const EdgeInsets.all(12),
+              ),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            ),
+          ),
+        ),
+      ]
+    ),
     );
   }
 
