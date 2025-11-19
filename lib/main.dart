@@ -86,7 +86,7 @@ class _QuizScreenState extends State<QuizScreen> {
   void initState() {
     super.initState();
     loadBirdsData();  // Charge le JSON au démarrage
-    _confettiController = ConfettiController(duration: const Duration(seconds: 3));
+    _confettiController = ConfettiController(duration: const Duration(milliseconds: 500));
   }
 
   // Nouvelle fonction pour charger le JSON
@@ -215,7 +215,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 },
               ),
             ),
-            // const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Text(
               currentScientificName,
               style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 16),
@@ -237,9 +237,10 @@ class _QuizScreenState extends State<QuizScreen> {
                           child: ConfettiWidget(
                             confettiController: _confettiController,
                             blastDirection: pi,
-                            emissionFrequency: 0.05,
-                            numberOfParticles: 80,
-                            gravity: 0.25,
+                            emissionFrequency: 0.15,             // ← au lieu de 0.05 (moins de particules émises par seconde)
+                            numberOfParticles: 30,               // ← au lieu de 80 (beaucoup moins de confettis à la fois)
+                            gravity: 0.4,                        // ← au lieu de 0.25 (ils tombent plus vite = moins longtemps visibles)
+                            // colors: const [Colors.green, Colors.lightGreen, Colors.yellow],  // ← moins de couleurs si tu veux (optionnel, mais ça calme le truc)
                             colors: const [Colors.green, Colors.yellow, Colors.orange, Colors.red, Colors.blue, Colors.purple],
                             createParticlePath: drawStar,
                             shouldLoop: false,
