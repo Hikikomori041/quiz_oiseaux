@@ -31,8 +31,45 @@
 
   <title>Quiz oiseaux</title>
   <link rel="manifest" href="manifest.json">
+
+  <!-- Cache-busting magique (plus jamais de README ou ancienne version) -->
+  <script>
+    const cacheBuster = new Date().getTime();
+    const addCacheBuster = (src) => src.includes('?') ? src : src + '?' + cacheBuster;
+
+    // On va ajouter le cache-buster à flutter.js et flutter_bootstrap.js dès qu’ils seront injectés
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((m) => {
+        m.addedNodes.forEach((node) => {
+          if (node.tagName === 'SCRIPT' && node.src && node.src.includes('flutter')) {
+            node.src = addCacheBuster(node.src);
+          }
+        });
+      });
+    });
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+  </script>
 </head>
 <body>
+  <!-- Petit loader élégant pendant le chargement -->
+  <div id="loading" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:#0f3d0f;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;font-family:system-ui,sans-serif;">
+    <h1 style="margin-bottom:20px;">Quiz Oiseaux</h1>
+    <div style="width:60px;height:60px;border:6px solid #333;border-top:6px solid #a0dba0;border-radius:50%;animation:s 1s linear infinite;"></div>
+  </div>
+
   <script src="flutter_bootstrap.js" async></script>
+
+  <!-- Supprime le loader dès que Flutter est prêt -->
+  <script>
+    window.addEventListener('flutter-first-frame', () => {
+      document.getElementById('loading').style.opacity = '0';
+      setTimeout(() => document.getElementById('loading').remove(), 600);
+    });
+  </script>
+
+  <style>
+    @keyframes s { to { transform: rotate(360deg); } }
+    #loading { transition: opacity .6s; }
+  </style>
 </body>
 </html>
