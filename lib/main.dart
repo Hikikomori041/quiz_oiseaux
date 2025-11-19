@@ -221,11 +221,11 @@ class _QuizScreenState extends State<QuizScreen> {
               style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 16),
             ),
             
-            // const SizedBox(height: 30),
+            const SizedBox(height: 30),
 
             // ESPACE RÉSERVÉ POUR LES 4 BOUTONS OU LE RÉSULTAT (hauteur fixe 270px)
             SizedBox(
-              height: 270,
+              height: 324,
               child: Center(
                 child: answered
                   ? Column(   // ← RÉSULTAT (seulement quand answered)
