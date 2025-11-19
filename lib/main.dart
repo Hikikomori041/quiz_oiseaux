@@ -7,7 +7,7 @@ import 'package:confetti/confetti.dart'; // ← N’oublie pas cet import en hau
 
 /// Fonction pour faire des confettis en forme d’étoile
 Path drawStar(Size size) {
-  double ratio = 0.5;
+  // double ratio = 0.5;
   double halfWidth = size.width / 2;
   double halfHeight = size.height / 2;
   double radius = halfWidth < halfHeight ? halfWidth : halfHeight;
@@ -71,6 +71,7 @@ class _QuizScreenState extends State<QuizScreen> {
   String? selectedAnswer;
   final player = AudioPlayer();
   late ConfettiController _confettiController;
+  List selectedFour = [];
 
 
   // Ajoute ces variables dans la classe _QuizScreenState
@@ -107,6 +108,22 @@ class _QuizScreenState extends State<QuizScreen> {
     newQuestion();
   }
 
+  Color getColorForType(String type) {
+    switch (type) {
+      case "montagne":
+        return const Color.fromRGBO(155, 135, 122, 1);
+      case "eau":
+        return const Color.fromRGBO(106, 165, 195, 1);
+      case "foret":
+        return const Color.fromRGBO(74, 119, 61, 1);
+      case "plaine":
+        return const Color.fromRGBO(142, 142, 56, 1);
+      case "commun":
+      default:
+        return const Color.fromRGBO(200, 140, 80, 1);
+    }
+  }
+
   // Remplace complètement _getBirdList() par ça :
   void newQuestion() {
     if (allBirdsData.isEmpty) return; // sécurité
@@ -117,7 +134,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
       // On tire 4 oiseaux au hasard
       final shuffled = [...allBirdsData]..shuffle();
-      final selectedFour = shuffled.take(4).toList();
+      selectedFour = shuffled.take(4).toList();
 
       // On choisit lequel est le bon
       currentBirdIndex = Random().nextInt(4);
@@ -157,8 +174,8 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(                                    // ← AJOUT
-        child: SingleChildScrollView(                   // ← AJOUT (pour les petits écrans)
+      body: Center(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,    
@@ -208,81 +225,99 @@ class _QuizScreenState extends State<QuizScreen> {
               height: 270,  // ajuste si tu veux plus ou moins d'espace
               child: Center(
                 child: !answered
-                    ? Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: options.map((option) => Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue[600],
-                                foregroundColor: Colors.white,
-                                padding: const EdgeInsets.all(18),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                              ),
-                              onPressed: () => checkAnswer(option),
-                              child: Text(option, style: const TextStyle(fontSize: 20)),
-                            ),
-                          ),
-                        )).toList(),
-                      )
-                    : Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          // Confettis (si bonne réponse)
-                          if (selectedAnswer == currentBirdName)
-                            Align(
-                              alignment: Alignment.topCenter,
-                              child: ConfettiWidget(
-                                confettiController: _confettiController,
-                                blastDirection: pi,
-                                emissionFrequency: 0.05,
-                                numberOfParticles: 80,
-                                gravity: 0.25,
-                                colors: const [Colors.green, Colors.yellow, Colors.orange, Colors.red, Colors.blue, Colors.purple],
-                                createParticlePath: drawStar,
-                                shouldLoop: false,
-                              ),
-                            ),
+                  ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: options.map((option) {
+                      // On retrouve l'oiseau correspondant au nom dans les 4 sélectionnés
+                      final birdData = selectedFour.firstWhere(
+                        (b) => b['nom_fr'] == option,
+                        orElse: () => {"type": "commun"},
+                      );
+                      final String type = birdData['type'] as String? ?? "commun";
+                      final Color buttonColor = getColorForType(type);
 
-                          // Message bonne/mauvaise réponse
-                          Container(
-                            padding: const EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              color: selectedAnswer == currentBirdName ? Colors.green[100] : Colors.red[100],
-                              borderRadius: BorderRadius.circular(16),
-                              border: Border.all(
-                                color: selectedAnswer == currentBirdName ? Colors.green : Colors.red,
-                                width: 3,
-                              ),
-                            ),
-                            child: Text(
-                              selectedAnswer == currentBirdName
-                                  ? "Bonne réponse !"
-                                  : "Mauvaise réponse ! C'était $currentBirdName",
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: selectedAnswer == currentBirdName ? Colors.green[800] : Colors.red[800],
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          const SizedBox(height: 40),
-
-                          // Bouton Question suivante
-                          ElevatedButton(
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green[700],
-                              padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                              backgroundColor: buttonColor,
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.all(18),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                side: BorderSide(color: buttonColor, width: 3),
+                              ),
+                              elevation: 10,
+                              shadowColor: buttonColor.withOpacity(0.7),
                             ),
-                            onPressed: newQuestion,
-                            child: const Text("Question suivante", style: TextStyle(fontSize: 22, color: Colors.white)),
+                            onPressed: () => checkAnswer(option),
+                            child: Text(
+                              option,
+                              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
                           ),
-                        ],
+                        ),
+                      );
+                    }).toList(),
+                  )
+                : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Confettis (si bonne réponse)
+                    if (selectedAnswer == currentBirdName)
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: ConfettiWidget(
+                          confettiController: _confettiController,
+                          blastDirection: pi,
+                          emissionFrequency: 0.05,
+                          numberOfParticles: 80,
+                          gravity: 0.25,
+                          colors: const [Colors.green, Colors.yellow, Colors.orange, Colors.red, Colors.blue, Colors.purple],
+                          createParticlePath: drawStar,
+                          shouldLoop: false,
+                        ),
                       ),
+
+                    // Message bonne/mauvaise réponse
+                    Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: selectedAnswer == currentBirdName ? Colors.green[100] : Colors.red[100],
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: selectedAnswer == currentBirdName ? Colors.green : Colors.red,
+                          width: 3,
+                        ),
+                      ),
+                      child: Text(
+                        selectedAnswer == currentBirdName
+                            ? "Bonne réponse !"
+                            : "Mauvaise réponse ! C'était $currentBirdName",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: selectedAnswer == currentBirdName ? Colors.green[800] : Colors.red[800],
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const SizedBox(height: 40),
+
+                    // Bouton Question suivante
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green[700],
+                        padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                      ),
+                      onPressed: newQuestion,
+                      child: const Text("Question suivante", style: TextStyle(fontSize: 22, color: Colors.white)),
+                    ),
+                  ],
+                ),
               ),
             ),
 
