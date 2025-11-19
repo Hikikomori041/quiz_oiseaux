@@ -1,11 +1,11 @@
 {
-    "name": "quiz_oiseaux",
-    "short_name": "quiz_oiseaux",
+    "name": "Quiz oiseaux",
+    "short_name": "Quiz oiseaux",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Un quiz d'identification d'oiseaux.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
