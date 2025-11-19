@@ -292,16 +292,35 @@ class _QuizScreenState extends State<QuizScreen> {
                                   width: 3,
                                 ),
                               ),
-                              child: Text(
-                                selectedAnswer == currentBirdName
-                                    ? "Bonne réponse !"
-                                    : "Mauvaise réponse ! C'était $currentBirdName",
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: selectedAnswer == currentBirdName ? Colors.green[800] : Colors.red[800],
-                                ),
-                                textAlign: TextAlign.center,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  // Message principal
+                                  Text(
+                                    selectedAnswer == currentBirdName
+                                        ? "Bonne réponse !\n\n$currentBirdName"
+                                        : "Mauvaise réponse !\n\n$currentBirdName",
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: selectedAnswer == currentBirdName ? Colors.green[800] : Colors.red[800],
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  // const SizedBox(height: 12),   // petit espace entre les deux textes
+                                  // Nom latin en petit italique
+                                  
+                                  if (!showScientificName)
+                                    Text(
+                                      "($currentScientificName)",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontStyle: FontStyle.italic,
+                                        color: selectedAnswer == currentBirdName ? Colors.green[800] : Colors.red[800],
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
                               ),
                             ),
                             const SizedBox(height: 40),
