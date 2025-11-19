@@ -173,157 +173,162 @@ class _QuizScreenState extends State<QuizScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (allBirdsData.isEmpty) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,    
-            children: [
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Text(
-                    "Score : $score / $questionCount",
-                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
+      extendBody: true,   // ← LIGNE 1 : obligatoire pour Android gesture navigation
+      body: SafeArea(     // ← LIGNE 2 : protège du notch + permet le extendBody proprement
+        child: Column(
+          mainAxisSize: MainAxisSize.min,    
+          children: [
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Text(
+                  "Score : $score / $questionCount",
+                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               ),
-              const SizedBox(height: 20),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.asset(
-                  'assets/images/$currentBirdName.jpg',
-                  height: 300,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      height: 300,
-                      color: Colors.red[100],
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.warning, size: 50, color: Colors.red),
-                          Text('Image manquante :\n$currentBirdName.jpg', textAlign: TextAlign.center),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
-              // const SizedBox(height: 20),
-              Text(
-                currentScientificName,
-                style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 16),
-              ),
-              
-              // const SizedBox(height: 30),
-
-              // ESPACE RÉSERVÉ POUR LES 4 BOUTONS (hauteur fixe 400px)
-              // → même quand ils sont cachés, l'espace reste → rien ne saute !
-              SizedBox(
-                height: 270,  // ajuste si tu veux plus ou moins d'espace
-                child: Center(
-                  child: !answered
-                    ? Column(
+            ),
+            const SizedBox(height: 20),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Image.asset(
+                'assets/images/$currentBirdName.jpg',
+                height: 300,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    height: 300,
+                    color: Colors.red[100],
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: options.map((option) {
-                        // On retrouve l'oiseau correspondant au nom dans les 4 sélectionnés
-                        final birdData = selectedFour.firstWhere(
-                          (b) => b['nom_fr'] == option,
-                          orElse: () => {"type": "commun"},
-                        );
-                        final String type = birdData['type'] as String? ?? "commun";
-                        final Color buttonColor = getColorForType(type);
+                      children: [
+                        const Icon(Icons.warning, size: 50, color: Colors.red),
+                        Text('Image manquante :\n$currentBirdName.jpg', textAlign: TextAlign.center),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+            // const SizedBox(height: 20),
+            Text(
+              currentScientificName,
+              style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 16),
+            ),
+            
+            // const SizedBox(height: 30),
 
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: buttonColor,
-                                foregroundColor: Colors.white,
-                                padding: const EdgeInsets.all(18),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  side: BorderSide(color: buttonColor, width: 3),
-                                ),
-                                elevation: 10,
-                                shadowColor: buttonColor.withOpacity(0.7),
+            // ESPACE RÉSERVÉ POUR LES 4 BOUTONS (hauteur fixe 400px)
+            // → même quand ils sont cachés, l'espace reste → rien ne saute !
+            SizedBox(
+              height: 270,  // ajuste si tu veux plus ou moins d'espace
+              child: Center(
+                child: !answered
+                  ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: options.map((option) {
+                      // On retrouve l'oiseau correspondant au nom dans les 4 sélectionnés
+                      final birdData = selectedFour.firstWhere(
+                        (b) => b['nom_fr'] == option,
+                        orElse: () => {"type": "commun"},
+                      );
+                      final String type = birdData['type'] as String? ?? "commun";
+                      final Color buttonColor = getColorForType(type);
+
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: buttonColor,
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.all(18),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                side: BorderSide(color: buttonColor, width: 3),
                               ),
-                              onPressed: () => checkAnswer(option),
-                              child: Text(
-                                option,
-                                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
+                              elevation: 10,
+                              shadowColor: buttonColor.withOpacity(0.7),
+                            ),
+                            onPressed: () => checkAnswer(option),
+                            child: Text(
+                              option,
+                              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                           ),
-                        );
-                      }).toList(),
-                    )
-                  : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Confettis (si bonne réponse)
-                      if (selectedAnswer == currentBirdName)
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: ConfettiWidget(
-                            confettiController: _confettiController,
-                            blastDirection: pi,
-                            emissionFrequency: 0.05,
-                            numberOfParticles: 80,
-                            gravity: 0.25,
-                            colors: const [Colors.green, Colors.yellow, Colors.orange, Colors.red, Colors.blue, Colors.purple],
-                            createParticlePath: drawStar,
-                            shouldLoop: false,
-                          ),
                         ),
-
-                      // Message bonne/mauvaise réponse
-                      Container(
-                        padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          color: selectedAnswer == currentBirdName ? Colors.green[100] : Colors.red[100],
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: selectedAnswer == currentBirdName ? Colors.green : Colors.red,
-                            width: 3,
-                          ),
-                        ),
-                        child: Text(
-                          selectedAnswer == currentBirdName
-                              ? "Bonne réponse !"
-                              : "Mauvaise réponse ! C'était $currentBirdName",
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: selectedAnswer == currentBirdName ? Colors.green[800] : Colors.red[800],
-                          ),
-                          textAlign: TextAlign.center,
+                      );
+                    }).toList(),
+                  )
+                : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Confettis (si bonne réponse)
+                    if (selectedAnswer == currentBirdName)
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: ConfettiWidget(
+                          confettiController: _confettiController,
+                          blastDirection: pi,
+                          emissionFrequency: 0.05,
+                          numberOfParticles: 80,
+                          gravity: 0.25,
+                          colors: const [Colors.green, Colors.yellow, Colors.orange, Colors.red, Colors.blue, Colors.purple],
+                          createParticlePath: drawStar,
+                          shouldLoop: false,
                         ),
                       ),
-                      const SizedBox(height: 40),
 
-                      // Bouton Question suivante
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green[700],
-                          padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                    // Message bonne/mauvaise réponse
+                    Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: selectedAnswer == currentBirdName ? Colors.green[100] : Colors.red[100],
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: selectedAnswer == currentBirdName ? Colors.green : Colors.red,
+                          width: 3,
                         ),
-                        onPressed: newQuestion,
-                        child: const Text("Question suivante", style: TextStyle(fontSize: 22, color: Colors.white)),
                       ),
-                    ],
-                  ),
+                      child: Text(
+                        selectedAnswer == currentBirdName
+                            ? "Bonne réponse !"
+                            : "Mauvaise réponse ! C'était $currentBirdName",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: selectedAnswer == currentBirdName ? Colors.green[800] : Colors.red[800],
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const SizedBox(height: 40),
+
+                    // Bouton Question suivante
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green[700],
+                        padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                      ),
+                      onPressed: newQuestion,
+                      child: const Text("Question suivante", style: TextStyle(fontSize: 22, color: Colors.white)),
+                    ),
+                  ],
                 ),
               ),
+            ),
 
-              const SizedBox(height: 120),
-            ],
-          ),
+            // Espace dynamique qui suit EXACTEMENT la taille de la barre de navigation Android
+            SizedBox(height: MediaQuery.of(context).viewPadding.bottom + 40),
+          ],
         ),
       ),
     );
