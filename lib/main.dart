@@ -241,7 +241,7 @@ class _QuizScreenState extends State<QuizScreen> {
                     ),
                   ),
                   
-                  const SizedBox(height: 10),
+                  // const SizedBox(height: 5),
 
                   // Nom latin – affiché ou caché selon le toggle
                   if (showScientificName)
@@ -253,8 +253,10 @@ class _QuizScreenState extends State<QuizScreen> {
                         textAlign: TextAlign.center,
                       ),
                     ),
+                  if (!showScientificName)
+                    const SizedBox(height: 52),   // garde exactement le même espace
                   
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 10),
 
                   // ESPACE RÉSERVÉ POUR LES 4 BOUTONS OU LE RÉSULTAT (hauteur fixe 270px)
                   SizedBox(
