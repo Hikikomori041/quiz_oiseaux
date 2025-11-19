@@ -5,7 +5,16 @@
 *.swp
 .DS_Store
 .atom/
-.build/
+
+# Build directories - on ignore tout...
+build/
+# ...SAUF le build web quand on veut le déployer
+!build/web/
+# Mais on ignore quand même les fichiers temporaires du build web
+build/web/**.stamp
+build/web/**.map
+build/web/assets NOT_SHIPPED/
+
 .buildlog/
 .history
 .svn/
