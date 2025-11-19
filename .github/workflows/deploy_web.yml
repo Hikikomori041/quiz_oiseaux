@@ -19,7 +19,7 @@ jobs:
         flutter-version: '3.38.1'
         channel: 'stable'
     - run: flutter pub get
-    - run: flutter build web --release -t lib/main.dart --dart-define=FLUTTER_WEB_USE_SKIA=false --base-href "/quiz_oiseaux/"
+    - run: flutter build web --release --dart-define=FLUTTER_WEB_USE_SKIA=false --base-href "/quiz_oiseaux/"
     - uses: actions/upload-pages-artifact@v3
       with:
         path: build/web
