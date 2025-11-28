@@ -507,6 +507,10 @@
     "type": "commun",
     "nom_latin": "Streptopelia decaocto"
   },
+  "Traquet du désert": {
+    "type": "plaine",
+    "nom_latin": "Oenanthe deserti"
+  },
   "Traquet motteux": {
     "type": "montagne",
     "nom_latin": "Oenanthe oenanthe"
